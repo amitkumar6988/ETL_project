@@ -1,12 +1,17 @@
 from src.extract import extract_data
-from src.transform import convert_order_dates, inspect_dataframe,delivery_dates
+from src.transform import (convert_order_dates, inspect_dataframe,
+                           delivery_dates,validate_delivery_time
+                           ,clean_orders,validate_orders,clean_products,
+                           clean_order_items,validate_order_items)
 import seaborn as sns
 import matplotlib.pyplot as plt
 
 def main():
-    #load
+    #extract
     customers=extract_data('customers.csv')
     orders=extract_data('orders.csv')
+    products=extract_data("products.csv")
+    order_items=extract_data("order_item.csv")
     #transform
     orders=convert_order_dates(orders)#convert data type to string
     orders=delivery_dates(orders)#calculate delivery time
@@ -16,8 +21,22 @@ def main():
 #inspect
     inspect_dataframe(customers,"customers")
     inspect_dataframe(orders,"orders")
+    inspect_dataframe(products,"products")
+    inspect_dataframe(order_items,"order_item")
 
-    print(orders["delivery_time"].describe())
+#validate
+    orders=clean_orders(orders)
+    validate_orders(orders)
+
+    products=clean_products(products)
+
+    order_items=clean_order_items(order_items)
+    validate_order_items(order_items)
+
+
+  
+
+
 
     
 
