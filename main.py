@@ -5,6 +5,7 @@ from src.transform import (convert_order_dates, inspect_dataframe,
                            clean_order_items,validate_order_items)
 from src.relationship import(validate_product_relationship,
                              validate_customer_relationship,validate_order_relationship)
+from src.pipeline import build_sales_dataset
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -45,6 +46,18 @@ def main():
 #validate customer relationship
     validate_customer_relationship(orders, customers)
 
+
+
+#merging the data set
+    sales = build_sales_dataset(
+    customers,
+    orders,
+    order_items,
+    products,
+)
+    print(sales.shape)
+    print(sales.head())
+    inspect_dataframe(sales,"sales dataset")
 
 
 
