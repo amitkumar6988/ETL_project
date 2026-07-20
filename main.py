@@ -3,6 +3,8 @@ from src.transform import (convert_order_dates, inspect_dataframe,
                            delivery_dates,validate_delivery_time
                            ,clean_orders,validate_orders,clean_products,
                            clean_order_items,validate_order_items)
+from src.relationship import(validate_product_relationship,
+                             validate_customer_relationship,validate_order_relationship)
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -32,6 +34,18 @@ def main():
 
     order_items=clean_order_items(order_items)
     validate_order_items(order_items)
+
+#validate product relationship
+    
+    validate_product_relationship(order_items, products)
+
+#validate order relationship
+    validate_order_relationship(order_items,orders)
+
+#validate customer relationship
+    validate_customer_relationship(orders, customers)
+
+
 
 
   
